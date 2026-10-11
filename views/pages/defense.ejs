@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/header') %>
+
+  <main>
+    <div style="background-color: var(--bg-card); padding: 60px 0; border-bottom: 1px solid var(--border-color);">
+      <div class="container text-center">
+        <h1 style="font-size: 3rem; color: var(--accent-green); margin-bottom: 20px;">Defense & Best Practices</h1>
+        <p class="text-muted" style="max-width: 700px; margin: 0 auto; font-size: 1.1rem;">
+          Building an impenetrable digital fortress requires consistency and discipline. Master these core principles to protect your data.
+        </p>
+      </div>
+    </div>
+
+    <div class="container mt-4 mb-4 grid-2">
+      <div>
+        <h2 style="color: var(--accent-cyan); margin-bottom: 20px;">The 3-2-1 Backup Rule</h2>
+        <p class="mb-2">Data loss happens. Whether by ransomware, hardware failure, or human error, having a reliable backup strategy is your last line of defense.</p>
+        <ul style="list-style-position: inside; color: var(--text-muted); margin-bottom: 20px;">
+          <li class="mb-2"><strong style="color: var(--text-main);">3 Copies of Data:</strong> The original, and at least two backups.</li>
+          <li class="mb-2"><strong style="color: var(--text-main);">2 Different Media:</strong> E.g., one on an external hard drive, one on a NAS.</li>
+          <li class="mb-2"><strong style="color: var(--text-main);">1 Offsite/Cloud:</strong> Store one copy in a different physical location (like a secure cloud provider) to protect against local disasters (fire, theft).</li>
+        </ul>
+
+        <div class="card mt-4" style="border-left: 4px solid #eab308;">
+          <h4 style="color: #eab308; margin-bottom: 10px;">Pro Tip: Multi-Factor Authentication (MFA)</h4>
+          <p class="text-muted" style="font-size: 0.9rem;">Always enable MFA on your critical accounts (Email, Banking, Password Manager). Even if a hacker steals your password, they cannot access your account without the second factor (like an authenticator app code).</p>
+        </div>
+      </div>
+      
+      <div class="card">
+        <h3 style="color: var(--text-main); margin-bottom: 20px; font-family: var(--font-heading);">Personal Security Checklist</h3>
+        <p class="text-muted mb-4" style="font-size: 0.9rem;">Track your progress to a safer digital life.</p>
+        
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="checklist-progress"></div>
+        </div>
+        <p class="text-right text-muted" id="progress-text" style="font-size: 0.8rem; text-align: right; margin-top: -15px; margin-bottom: 20px;">0%</p>
+
+        <form id="checklist-form">
+          <label class="checklist-item">
+            <input type="checkbox" class="task-check"> 
+            <span>Use a Password Manager</span>
+          </label>
+          <label class="checklist-item">
+            <input type="checkbox" class="task-check"> 
+            <span>Enable MFA on Email & Bank</span>
+          </label>
+          <label class="checklist-item">
+            <input type="checkbox" class="task-check"> 
+            <span>Turn on automatic OS updates</span>
+          </label>
+          <label class="checklist-item">
+            <input type="checkbox" class="task-check"> 
+            <span>Install a reputable Antivirus</span>
+          </label>
+          <label class="checklist-item">
+            <input type="checkbox" class="task-check"> 
+            <span>Setup a 3-2-1 backup system</span>
+          </label>
+          <label class="checklist-item">
+            <input type="checkbox" class="task-check"> 
+            <span>Review social media privacy settings</span>
+          </label>
+          <label class="checklist-item">
+            <input type="checkbox" class="task-check"> 
+            <span>Use a VPN on public Wi-Fi</span>
+          </label>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script>
+    const checkboxes = document.querySelectorAll('.task-check');
+    const progressBar = document.getElementById('checklist-progress');
+    const progressText = document.getElementById('progress-text');
+
+    function updateProgress() {
+      const total = checkboxes.length;
+      const checked = document.querySelectorAll('.task-check:checked').length;
+      const percentage = Math.round((checked / total) * 100);
+      
+      progressBar.style.width = percentage + '%';
+      progressText.textContent = percentage + '%';
+
+      if (percentage === 100) {
+        progressBar.style.backgroundColor = 'var(--accent-cyan)';
+        showToast('Congratulations! You are officially secure!', 'success');
+      } else {
+        progressBar.style.backgroundColor = 'var(--accent-green)';
+      }
+    }
+
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', updateProgress);
+    });
+  </script>
+</body>
+</html>

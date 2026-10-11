@@ -1,0 +1,59 @@
+<header>
+  <div class="container nav-container">
+    <a href="/" class="logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      </svg>
+      Cyber<span>Shield</span>
+    </a>
+    
+    <button class="hamburger" id="hamburger-btn" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    
+    <nav class="nav-links" id="nav-links">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/threats">Threats</a>
+      <a href="/defense">Defense</a>
+      <a href="/careers">Careers</a>
+      <a href="/tools">Tools</a>
+      <a href="/blog">Blog</a>
+      
+      <button class="btn btn-outline" onclick="toggleTheme()" style="padding: 5px 10px; margin-left: 10px;">🌓</button>
+      
+      <% if (user) { %>
+        <a href="/auth/dashboard" class="btn btn-primary" style="margin-left: 10px;">Dashboard</a>
+        <a href="/auth/logout" class="btn btn-danger">Logout</a>
+      <% } else { %>
+        <a href="/auth/login" class="btn btn-outline" style="margin-left: 10px;">Login</a>
+        <a href="/auth/register" class="btn btn-primary">Register</a>
+      <% } %>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const navLinks = document.getElementById('nav-links');
+
+  if (hamburgerBtn && navLinks) {
+    const closeMenu = () => {
+      navLinks.classList.remove('show');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+    };
+
+    hamburgerBtn.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('show');
+      hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!navLinks.contains(event.target) && !hamburgerBtn.contains(event.target)) {
+        closeMenu();
+      }
+    });
+  }
+</script>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/header') %>
+
+  <main>
+    <div style="background-color: var(--bg-card); padding: 60px 0; border-bottom: 1px solid var(--border-color);">
+      <div class="container text-center">
+        <h1 style="font-size: 3rem; color: var(--accent-cyan); margin-bottom: 20px;">Careers & Learning</h1>
+        <p class="text-muted" style="max-width: 700px; margin: 0 auto; font-size: 1.1rem;">
+          The cyber security field is growing rapidly with zero percent unemployment. Discover career paths, certifications, and resources to start your journey.
+        </p>
+      </div>
+    </div>
+
+    <div class="container mt-4 mb-4">
+      <h2 class="mb-4" style="color: var(--accent-green);">Common Roles</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3 style="margin-bottom: 10px;">Security Analyst (SOC)</h3>
+          <p class="text-muted mb-2">Monitors network traffic, analyzes security alerts, and responds to incidents in real-time.</p>
+          <span style="font-size: 0.8rem; background: var(--border-color); padding: 4px 8px; border-radius: 4px;">Entry to Mid-Level</span>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom: 10px;">Ethical Hacker / Pentester</h3>
+          <p class="text-muted mb-2">Proactively attempts to breach systems (with permission) to find and fix vulnerabilities before malicious hackers do.</p>
+          <span style="font-size: 0.8rem; background: var(--border-color); padding: 4px 8px; border-radius: 4px;">Mid to Senior-Level</span>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom: 10px;">Security Engineer</h3>
+          <p class="text-muted mb-2">Designs and builds secure IT infrastructure, implements firewalls, and maintains security systems.</p>
+          <span style="font-size: 0.8rem; background: var(--border-color); padding: 4px 8px; border-radius: 4px;">Mid to Senior-Level</span>
+        </div>
+      </div>
+
+      <h2 class="mt-4 mb-4" style="color: var(--accent-cyan);">Top Certifications</h2>
+      <div class="grid-2">
+        <div class="card" style="border-left: 4px solid var(--accent-cyan);">
+          <h3 style="margin-bottom: 10px;">CompTIA Security+</h3>
+          <p class="text-muted">The global standard for validating baseline skills to perform core security functions. Great for beginners.</p>
+        </div>
+        <div class="card" style="border-left: 4px solid var(--accent-green);">
+          <h3 style="margin-bottom: 10px;">CEH (Certified Ethical Hacker)</h3>
+          <p class="text-muted">Certifies individuals in the specific network security discipline of Ethical Hacking from a vendor-neutral perspective.</p>
+        </div>
+        <div class="card" style="border-left: 4px solid #ef4444;">
+          <h3 style="margin-bottom: 10px;">OSCP (Offensive Security Certified Professional)</h3>
+          <p class="text-muted">A highly respected, entirely hands-on penetration testing certification. Not for the faint of heart.</p>
+        </div>
+        <div class="card" style="border-left: 4px solid #eab308;">
+          <h3 style="margin-bottom: 10px;">CISSP</h3>
+          <p class="text-muted">The gold standard for security management professionals. Requires 5 years of proven industry experience.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

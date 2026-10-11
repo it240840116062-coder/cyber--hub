@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../partials/head') %>
+<body>
+  <%- include('../../partials/header') %>
+
+  <main style="padding: 60px 0;">
+    <div class="container" style="max-width: 800px;">
+      <h1 class="mb-4 text-center" style="color: var(--accent-cyan);">Edit Post</h1>
+      
+      <div class="card">
+        <form action="/blog/edit/<%= post.id %>" method="POST">
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" name="title" class="form-control" value="<%= post.title %>" required>
+          </div>
+          <div class="form-group">
+            <label>Slug</label>
+            <input type="text" name="slug" class="form-control" value="<%= post.slug %>" required>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select name="category" class="form-control" required style="background-color: var(--bg-dark); color: var(--text-main);">
+              <option value="Malware" <%= post.category === 'Malware' ? 'selected' : '' %>>Malware</option>
+              <option value="Phishing" <%= post.category === 'Phishing' ? 'selected' : '' %>>Phishing</option>
+              <option value="Privacy" <%= post.category === 'Privacy' ? 'selected' : '' %>>Privacy</option>
+              <option value="Careers" <%= post.category === 'Careers' ? 'selected' : '' %>>Careers</option>
+              <option value="Network Security" <%= post.category === 'Network Security' ? 'selected' : '' %>>Network Security</option>
+              <option value="News" <%= post.category === 'News' ? 'selected' : '' %>>News</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Image URL</label>
+            <input type="text" name="image_url" class="form-control" value="<%= post.image_url %>" required>
+          </div>
+          <div class="form-group">
+            <label>Excerpt</label>
+            <textarea name="excerpt" class="form-control" rows="2" required><%= post.excerpt %></textarea>
+          </div>
+          <div class="form-group">
+            <label>Content</label>
+            <textarea name="content" class="form-control" rows="15" required><%= post.content %></textarea>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Update Post</button>
+          <a href="/auth/dashboard" class="btn btn-outline" style="margin-left: 10px;">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../../partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/header') %>
+
+  <main>
+    <div style="background-color: var(--bg-card); padding: 60px 0; border-bottom: 1px solid var(--border-color);">
+      <div class="container text-center">
+        <h1 style="font-size: 3rem; color: var(--accent-cyan); margin-bottom: 20px;">Interactive Tools</h1>
+        <p class="text-muted" style="max-width: 700px; margin: 0 auto; font-size: 1.1rem;">
+          Test your knowledge and secure your credentials with our interactive utilities.
+        </p>
+      </div>
+    </div>
+
+    <div class="container mt-4 mb-4 grid-2">
+      <!-- Password Strength Checker -->
+      <div class="card">
+        <h2 style="color: var(--accent-green); margin-bottom: 20px;">Password Strength Checker</h2>
+        <p class="text-muted mb-4">Enter a password below to see how strong it is. We do not store or transmit this data.</p>
+        
+        <div class="form-group">
+          <input type="text" id="pwd-input" class="form-control" placeholder="Type a password...">
+        </div>
+        
+        <div class="progress-bar-container" style="height: 6px; margin: 10px 0;">
+          <div class="progress-bar" id="pwd-meter" style="width: 0%; background-color: var(--danger);"></div>
+        </div>
+        <p id="pwd-text" style="font-weight: bold; margin-bottom: 15px;">Strength: <span>None</span></p>
+        
+        <ul id="pwd-feedback" class="text-muted" style="font-size: 0.9rem; list-style: none;">
+          <li id="req-length">❌ At least 8 characters</li>
+          <li id="req-upper">❌ Uppercase letter</li>
+          <li id="req-number">❌ Number</li>
+          <li id="req-special">❌ Special character (!@#$%^&*)</li>
+        </ul>
+      </div>
+
+      <!-- Phishing Quiz -->
+      <div class="card">
+        <h2 style="color: var(--accent-cyan); margin-bottom: 20px;">Phishing Awareness Quiz</h2>
+        <p class="text-muted mb-4">Can you spot a fake email? Take our short quiz to test your instincts.</p>
+        
+        <div id="quiz-container">
+          <div id="quiz-q" style="font-size: 1.1rem; margin-bottom: 20px; font-weight: 500;">
+            1. You receive an email from "security@paypal-update.com" asking you to verify your account. What do you do?
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <button class="btn btn-outline quiz-btn" style="text-align: left;" onclick="answerQuiz(false)">A) Click the link, it's from PayPal security.</button>
+            <button class="btn btn-outline quiz-btn" style="text-align: left;" onclick="answerQuiz(true)">B) Ignore/Report it. Real PayPal domain is paypal.com.</button>
+            <button class="btn btn-outline quiz-btn" style="text-align: left;" onclick="answerQuiz(false)">C) Reply asking if it's real.</button>
+          </div>
+        </div>
+        <div id="quiz-result" style="display: none; margin-top: 20px; padding: 15px; border-radius: 4px;"></div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script>
+    // Password Strength
+    const pwdInput = document.getElementById('pwd-input');
+    const pwdMeter = document.getElementById('pwd-meter');
+    const pwdText = document.querySelector('#pwd-text span');
+    
+    const reqLength = document.getElementById('req-length');
+    const reqUpper = document.getElementById('req-upper');
+    const reqNumber = document.getElementById('req-number');
+    const reqSpecial = document.getElementById('req-special');
+
+    pwdInput.addEventListener('input', () => {
+      const val = pwdInput.value;
+      let score = 0;
+
+      // Length
+      if (val.length >= 8) { score++; reqLength.textContent = '✅ At least 8 characters'; reqLength.style.color = 'var(--accent-green)'; }
+      else { reqLength.textContent = '❌ At least 8 characters'; reqLength.style.color = ''; }
+
+      // Upper
+      if (/[A-Z]/.test(val)) { score++; reqUpper.textContent = '✅ Uppercase letter'; reqUpper.style.color = 'var(--accent-green)'; }
+      else { reqUpper.textContent = '❌ Uppercase letter'; reqUpper.style.color = ''; }
+
+      // Number
+      if (/[0-9]/.test(val)) { score++; reqNumber.textContent = '✅ Number'; reqNumber.style.color = 'var(--accent-green)'; }
+      else { reqNumber.textContent = '❌ Number'; reqNumber.style.color = ''; }
+
+      // Special
+      if (/[^A-Za-z0-9]/.test(val)) { score++; reqSpecial.textContent = '✅ Special character'; reqSpecial.style.color = 'var(--accent-green)'; }
+      else { reqSpecial.textContent = '❌ Special character'; reqSpecial.style.color = ''; }
+
+      switch(score) {
+        case 0:
+        case 1:
+          pwdMeter.style.width = '25%'; pwdMeter.style.backgroundColor = 'var(--danger)';
+          pwdText.textContent = 'Weak'; pwdText.style.color = 'var(--danger)'; break;
+        case 2:
+          pwdMeter.style.width = '50%'; pwdMeter.style.backgroundColor = '#eab308';
+          pwdText.textContent = 'Fair'; pwdText.style.color = '#eab308'; break;
+        case 3:
+          pwdMeter.style.width = '75%'; pwdMeter.style.backgroundColor = '#60a5fa';
+          pwdText.textContent = 'Good'; pwdText.style.color = '#60a5fa'; break;
+        case 4:
+          pwdMeter.style.width = '100%'; pwdMeter.style.backgroundColor = 'var(--accent-green)';
+          pwdText.textContent = 'Strong'; pwdText.style.color = 'var(--accent-green)'; break;
+      }
+      
+      if(val.length === 0) {
+        pwdMeter.style.width = '0%'; pwdText.textContent = 'None'; pwdText.style.color = '';
+      }
+    });
+
+    // Quiz Demo
+    function answerQuiz(isCorrect) {
+      const result = document.getElementById('quiz-result');
+      result.style.display = 'block';
+      if (isCorrect) {
+        result.style.backgroundColor = 'rgba(0, 255, 102, 0.1)';
+        result.style.border = '1px solid var(--accent-green)';
+        result.innerHTML = '<strong style="color: var(--accent-green);">Correct!</strong> Always check the domain name. Scammers often use domains that look similar to the real ones (e.g. paypal-update.com instead of paypal.com).';
+      } else {
+        result.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+        result.style.border = '1px solid var(--danger)';
+        result.innerHTML = '<strong style="color: var(--danger);">Incorrect.</strong> Real organizations usually use their official domain (e.g. paypal.com). Never click links in unexpected emails. Always navigate to the site manually.';
+      }
+    }
+  </script>
+</body>
+</html>

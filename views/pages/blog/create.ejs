@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../partials/head') %>
+<body>
+  <%- include('../../partials/header') %>
+
+  <main style="padding: 60px 0;">
+    <div class="container" style="max-width: 800px;">
+      <h1 class="mb-4 text-center" style="color: var(--accent-cyan);">Create New Post</h1>
+      
+      <div class="card">
+        <form action="/blog/create" method="POST">
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" name="title" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Slug (URL friendly)</label>
+            <input type="text" name="slug" class="form-control" placeholder="my-awesome-post" required>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select name="category" class="form-control" required style="background-color: var(--bg-dark); color: var(--text-main);">
+              <option value="Malware">Malware</option>
+              <option value="Phishing">Phishing</option>
+              <option value="Privacy">Privacy</option>
+              <option value="Careers">Careers</option>
+              <option value="Network Security">Network Security</option>
+              <option value="News">News</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Image URL</label>
+            <input type="text" name="image_url" class="form-control" placeholder="https://images.unsplash.com/..." required>
+          </div>
+          <div class="form-group">
+            <label>Excerpt (Short description)</label>
+            <textarea name="excerpt" class="form-control" rows="2" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Content (HTML supported)</label>
+            <textarea name="content" class="form-control" rows="15" required></textarea>
+            <small class="text-muted mt-2 d-block">Use HTML tags for formatting (e.g., &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;).</small>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Publish Post</button>
+          <a href="/auth/dashboard" class="btn btn-outline" style="margin-left: 10px;">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../../partials/footer') %>
+</body>
+</html>

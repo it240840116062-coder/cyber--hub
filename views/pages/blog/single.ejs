@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../partials/head') %>
+<body>
+  <%- include('../../partials/header') %>
+
+  <main style="padding: 60px 0;">
+    <div class="container" style="max-width: 800px;">
+      <a href="/blog" style="color: var(--text-muted); display: inline-block; margin-bottom: 20px;">← Back to Blog</a>
+      
+      <div class="mb-4">
+        <span style="background-color: var(--accent-cyan-glow); color: var(--accent-cyan); padding: 4px 10px; border-radius: 4px; font-size: 0.85rem;"><%= post.category %></span>
+        <span class="text-muted" style="margin-left: 15px; font-size: 0.9rem;"><%= new Date(post.created_at).toLocaleDateString() %></span>
+      </div>
+      
+      <h1 style="font-size: 2.5rem; margin-bottom: 20px;"><%= post.title %></h1>
+      
+      <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 40px; border-bottom: 1px solid var(--border-color); padding-bottom: 20px;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--accent-green); display: flex; justify-content: center; align-items: center; color: #000; font-weight: bold; font-family: var(--font-heading);">
+          <%= post.author_name.charAt(0) %>
+        </div>
+        <div>
+          <p style="font-weight: 500;"><%= post.author_name %></p>
+          <p class="text-muted" style="font-size: 0.8rem;">Author / Admin</p>
+        </div>
+      </div>
+      
+      <% if (post.image_url) { %>
+        <img src="<%= post.image_url %>" alt="<%= post.title %>" style="width: 100%; border-radius: 8px; margin-bottom: 40px;">
+      <% } %>
+
+      <div class="blog-content" style="font-size: 1.1rem; line-height: 1.8; color: var(--text-main);">
+        <!-- In a real app, you'd use a markdown parser. For this demo, we'll assume HTML content is saved or render it raw securely. We'll use <%- %> to render HTML safely provided by our seed. -->
+        <%- post.content %>
+      </div>
+
+      <div style="margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+        <h4 style="margin: 0;">Share this article:</h4>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-outline" style="padding: 5px 10px;">Twitter</button>
+          <button class="btn btn-outline" style="padding: 5px 10px;">LinkedIn</button>
+        </div>
+      </div>
+
+      <!-- Comments Section -->
+      <div style="margin-top: 60px; background-color: var(--bg-card); padding: 30px; border-radius: 8px;">
+        <h3 style="margin-bottom: 20px;">Comments (<%= comments.length %>)</h3>
+        
+        <% if (user) { %>
+          <form action="/blog/<%= post.slug %>/comment" method="POST" style="margin-bottom: 40px;">
+            <div class="form-group">
+              <textarea name="content" class="form-control" rows="3" placeholder="Leave a comment..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Post Comment</button>
+          </form>
+        <% } else { %>
+          <div style="background-color: var(--bg-dark); padding: 15px; border-radius: 4px; margin-bottom: 40px; border-left: 4px solid var(--accent-cyan);">
+            <p><a href="/auth/login">Login</a> to leave a comment.</p>
+          </div>
+        <% } %>
+
+        <div>
+          <% if (comments.length > 0) { %>
+            <% comments.forEach(comment => { %>
+              <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color);">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                  <strong style="color: var(--accent-green);"><%= comment.author_name %></strong>
+                  <span class="text-muted" style="font-size: 0.85rem;"><%= new Date(comment.created_at).toLocaleString() %></span>
+                </div>
+                <p style="color: var(--text-main);"><%= comment.content %></p>
+              </div>
+            <% }) %>
+          <% } else { %>
+            <p class="text-muted">No comments yet. Be the first!</p>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    
+    <% if (relatedPosts && relatedPosts.length > 0) { %>
+      <div class="container mt-4">
+        <h3 class="mb-4 text-center">Related Articles</h3>
+        <div class="grid-3">
+          <% relatedPosts.forEach(rp => { %>
+            <a href="/blog/<%= rp.slug %>" class="card" style="text-decoration: none;">
+              <img src="<%= rp.image_url %>" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 15px;">
+              <h4 style="color: var(--text-main);"><%= rp.title %></h4>
+            </a>
+          <% }) %>
+        </div>
+      </div>
+    <% } %>
+  </main>
+
+  <%- include('../../partials/footer') %>
+</body>
+</html>

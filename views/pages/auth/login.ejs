@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../partials/head') %>
+<body>
+  <%- include('../../partials/header') %>
+
+  <main style="display: flex; justify-content: center; align-items: center; padding: 60px 20px;">
+    <div class="card" style="width: 100%; max-width: 450px;">
+      <h2 class="text-center mb-4" style="color: var(--accent-cyan);">Login to CyberShield</h2>
+      
+      <form id="login-form">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div style="position: relative;">
+            <input type="password" name="password" id="pwd" class="form-control" required>
+            <button type="button" id="toggle-pwd" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer;">Show</button>
+          </div>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <label style="display: flex; align-items: center; gap: 5px; font-weight: normal; font-size: 0.9rem;">
+            <input type="checkbox"> Remember me
+          </label>
+          <a href="/auth/forgot-password" style="font-size: 0.9rem;">Forgot password?</a>
+        </div>
+        
+        <div id="error-msg" class="text-center mb-2" style="color: var(--danger); display: none;"></div>
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+      </form>
+      
+      <p class="text-center mt-4 text-muted">Don't have an account? <a href="/auth/register">Register here</a></p>
+    </div>
+  </main>
+
+  <%- include('../../partials/footer') %>
+
+  <script>
+    document.getElementById('toggle-pwd').addEventListener('click', function() {
+      const pwd = document.getElementById('pwd');
+      if (pwd.type === 'password') {
+        pwd.type = 'text';
+        this.textContent = 'Hide';
+      } else {
+        pwd.type = 'password';
+        this.textContent = 'Show';
+      }
+    });
+
+    const form = document.getElementById('login-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = form.email.value;
+      const password = form.password.value;
+      const errorMsg = document.getElementById('error-msg');
+      
+      try {
+        const res = await fetch('/auth/login', {
+          method: 'POST',
+          body: JSON.stringify({ email, password }),
+          headers: {'Content-Type': 'application/json'}
+        });
+        const data = await res.json();
+        
+        if (data.error) {
+          errorMsg.textContent = data.error;
+          errorMsg.style.display = 'block';
+        } else if (data.user) {
+          location.assign('/auth/dashboard');
+        }
+      } catch (err) {
+        errorMsg.textContent = 'An error occurred. Please try again.';
+        errorMsg.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

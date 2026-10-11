@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/header') %>
+
+  <main>
+    <section class="hero-section">
+      <div class="matrix-bg"></div>
+      <div class="container">
+        <h1 class="hero-title">Defend Your Digital World</h1>
+        <p class="hero-subtitle">Learn the tactics of cyber attackers and how to build an unbreakable defense. The ultimate hub for cyber security education and awareness.</p>
+        <div class="hero-actions">
+          <a href="/about" class="btn btn-primary" style="font-size: 1.1rem; padding: 12px 30px;">Start Learning</a>
+          <a href="/blog" class="btn btn-outline" style="font-size: 1.1rem; padding: 12px 30px;">Read Blog</a>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 60px 0; background-color: var(--bg-card);">
+      <div class="container">
+        <div class="grid-3 text-center">
+          <div class="stat-box">
+            <div class="stat-num" data-target="2200">0</div>
+            <p class="text-muted">Attacks Per Day</p>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num" data-target="4.35">$0M</div>
+            <p class="text-muted">Average Cost of a Breach</p>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num" data-target="3.4">0B</div>
+            <p class="text-muted">Phishing Emails Daily</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 80px 0;">
+      <div class="container">
+        <h2 class="text-center mb-4" style="font-size: 2.5rem; color: var(--accent-cyan);">Featured Topics</h2>
+        <div class="grid-3">
+          <a href="/threats" class="card" style="display: block; text-decoration: none;">
+            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80" alt="Code on screen" class="blog-card-img">
+            <h3 style="color: var(--text-main); margin-bottom: 10px;">Threats & Attacks</h3>
+            <p class="text-muted">Understand malware, phishing, DDoS, and how hackers operate.</p>
+          </a>
+          <a href="/defense" class="card" style="display: block; text-decoration: none;">
+            <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=600&q=80" alt="Server room" class="blog-card-img">
+            <h3 style="color: var(--text-main); margin-bottom: 10px;">Defense & Best Practices</h3>
+            <p class="text-muted">Learn about firewalls, MFA, encryption, and safe browsing habits.</p>
+          </a>
+          <a href="/tools" class="card" style="display: block; text-decoration: none;">
+            <img src="https://images.unsplash.com/photo-1614064641913-a538a5b81a17?auto=format&fit=crop&w=600&q=80" alt="Digital lock" class="blog-card-img">
+            <h3 style="color: var(--text-main); margin-bottom: 10px;">Interactive Tools</h3>
+            <p class="text-muted">Test your password strength and take our phishing awareness quiz.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 60px 0; background-color: var(--bg-card); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+      <div class="container grid-2">
+        <div>
+          <h2 style="color: var(--accent-green); margin-bottom: 20px;">Security Tip of the Day</h2>
+          <p style="font-size: 1.1rem; line-height: 1.8;"><strong>Use a Password Manager.</strong> Never reuse passwords across different sites. A password manager generates strong, unique passwords for every account and stores them securely, meaning you only have to remember one master password.</p>
+          <a href="/defense" class="btn btn-outline mt-2">More Best Practices</a>
+        </div>
+        <div>
+          <!-- Placeholder for diagram -->
+          <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?auto=format&fit=crop&w=800&q=80" alt="Cyber security concept" style="width: 100%; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 80px 0;">
+      <div class="container">
+        <h2 class="text-center mb-4" style="font-size: 2.5rem;">Latest from the Blog</h2>
+        <div class="grid-3">
+          <% if (recentPosts && recentPosts.length > 0) { %>
+            <% recentPosts.forEach(post => { %>
+              <div class="card">
+                <img src="<%= post.image_url || 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80' %>" alt="<%= post.title %>" class="blog-card-img">
+                <div class="blog-meta">
+                  <span style="color: var(--accent-cyan);"><%= post.category %></span>
+                  <span><%= new Date(post.created_at).toLocaleDateString() %></span>
+                </div>
+                <h3 class="blog-title"><a href="/blog/<%= post.slug %>" style="color: var(--text-main);"><%= post.title %></a></h3>
+                <p class="text-muted" style="margin-bottom: 15px; font-size: 0.95rem;"><%= post.excerpt %></p>
+                <a href="/blog/<%= post.slug %>" style="font-weight: 500; display: inline-flex; align-items: center; gap: 5px;">Read More →</a>
+              </div>
+            <% }) %>
+          <% } else { %>
+            <p class="text-muted text-center" style="grid-column: 1 / -1;">No posts yet. Check back soon!</p>
+          <% } %>
+        </div>
+        <div class="text-center mt-4">
+          <a href="/blog" class="btn btn-primary">View All Posts</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script>
+    // Simple counter animation
+    const counters = document.querySelectorAll('.stat-num');
+    const speed = 200;
+
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText.replace(/[^0-9.]/g, '');
+        
+        const inc = target / speed;
+        
+        if (count < target) {
+          let next = count + inc;
+          if (counter.innerText.includes('M')) counter.innerText = '$' + next.toFixed(1) + 'M';
+          else if (counter.innerText.includes('B')) counter.innerText = next.toFixed(1) + 'B';
+          else counter.innerText = Math.ceil(next);
+          setTimeout(updateCount, 10);
+        } else {
+          if (counter.innerText.includes('M')) counter.innerText = '$' + target + 'M';
+          else if (counter.innerText.includes('B')) counter.innerText = target + 'B';
+          else counter.innerText = target;
+        }
+      };
+      
+      // Observer to trigger when visible
+      const observer = new IntersectionObserver((entries) => {
+        if(entries[0].isIntersecting) {
+          updateCount();
+          observer.disconnect();
+        }
+      });
+      observer.observe(counter);
+    });
+  </script>
+</body>
+</html>

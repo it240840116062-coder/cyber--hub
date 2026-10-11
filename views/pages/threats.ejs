@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/header') %>
+
+  <main>
+    <div style="background-color: var(--bg-card); padding: 60px 0; border-bottom: 1px solid var(--border-color);">
+      <div class="container text-center">
+        <h1 style="font-size: 3rem; color: var(--accent-cyan); margin-bottom: 20px;">Threats & Attacks</h1>
+        <p class="text-muted" style="max-width: 700px; margin: 0 auto; font-size: 1.1rem;">
+          Know your enemy. Explore the most common types of cyber attacks, how they work, real-world examples, and how to defend against them.
+        </p>
+      </div>
+    </div>
+
+    <div class="container mt-4 mb-4">
+      <div class="accordion">
+        
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <span>Malware (Ransomware, Trojans, Worms)</span>
+            <span>+</span>
+          </div>
+          <div class="accordion-content">
+            <p class="mt-2 mb-2"><strong>Description:</strong> Malicious software designed to cause damage to a computer, server, client, or computer network.</p>
+            <p class="mb-2"><strong>How it works:</strong> Usually delivered via a malicious link or email attachment. Once opened, it executes code that can steal data, encrypt files (ransomware), or take control of the system.</p>
+            <p class="mb-2"><strong>Real-World Example:</strong> The <em>WannaCry</em> ransomware attack in 2017 affected over 200,000 computers across 150 countries, causing billions in damages.</p>
+            <div style="background-color: rgba(0, 255, 102, 0.1); border-left: 4px solid var(--accent-green); padding: 10px; margin: 15px 0;">
+              <strong>Prevention:</strong> Keep software updated, use reliable antivirus, and never click suspicious links or download unknown attachments.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <span>Phishing & Social Engineering</span>
+            <span>+</span>
+          </div>
+          <div class="accordion-content">
+            <p class="mt-2 mb-2"><strong>Description:</strong> The practice of sending fraudulent communications that appear to come from a reputable source, usually through email.</p>
+            <p class="mb-2"><strong>How it works:</strong> Attackers trick victims into revealing sensitive data, like passwords or credit card numbers, or into installing malware on the victim's machine.</p>
+            <p class="mb-2"><strong>Real-World Example:</strong> The 2016 DNC email leak was initiated by a spear-phishing attack on campaign chairman John Podesta.</p>
+            <div style="background-color: rgba(0, 255, 102, 0.1); border-left: 4px solid var(--accent-green); padding: 10px; margin: 15px 0;">
+              <strong>Prevention:</strong> Verify the sender's email address, don't rush into urgent requests, use MFA, and hover over links before clicking.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <span>DDoS (Distributed Denial of Service)</span>
+            <span>+</span>
+          </div>
+          <div class="accordion-content">
+            <p class="mt-2 mb-2"><strong>Description:</strong> A malicious attempt to disrupt normal traffic of a targeted server, service, or network by overwhelming the target with a flood of Internet traffic.</p>
+            <p class="mb-2"><strong>How it works:</strong> Attackers use botnets (networks of infected computers/IoT devices) to send massive amounts of requests to the target, exhausting its resources.</p>
+            <p class="mb-2"><strong>Real-World Example:</strong> The 2016 Dyn cyberattack used the Mirai botnet to take down major sites like Twitter, Reddit, and Netflix.</p>
+            <div style="background-color: rgba(0, 255, 102, 0.1); border-left: 4px solid var(--accent-green); padding: 10px; margin: 15px 0;">
+              <strong>Prevention:</strong> Use DDoS mitigation services (like Cloudflare), rate limiting, and robust server architecture.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <span>SQL Injection & XSS</span>
+            <span>+</span>
+          </div>
+          <div class="accordion-content">
+            <p class="mt-2 mb-2"><strong>Description:</strong> Web application vulnerabilities. SQLi allows attackers to interfere with database queries, while XSS injects malicious scripts into websites viewed by other users.</p>
+            <p class="mb-2"><strong>How it works:</strong> Attackers input malicious code into input fields (like search bars or login forms) that the application executes without proper sanitization.</p>
+            <p class="mb-2"><strong>Real-World Example:</strong> The 2015 TalkTalk data breach involved a SQL injection attack that stole personal data of over 150,000 customers.</p>
+            <div style="background-color: rgba(0, 255, 102, 0.1); border-left: 4px solid var(--accent-green); padding: 10px; margin: 15px 0;">
+              <strong>Prevention:</strong> Use parameterized queries (prepared statements) for DB access, and properly sanitize/escape all user inputs.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <span>Zero-Day Exploits</span>
+            <span>+</span>
+          </div>
+          <div class="accordion-content">
+            <p class="mt-2 mb-2"><strong>Description:</strong> A cyber attack that occurs on the same day a weakness is discovered in software. At that point, it's exploited before a fix becomes available from its creator.</p>
+            <p class="mb-2"><strong>How it works:</strong> Hackers spot a flaw in software, create code to exploit it, and launch the attack before the developer even knows the vulnerability exists.</p>
+            <p class="mb-2"><strong>Real-World Example:</strong> Stuxnet, a malicious worm that targeted Iran's nuclear facilities, used four different zero-day exploits in Microsoft Windows.</p>
+            <div style="background-color: rgba(0, 255, 102, 0.1); border-left: 4px solid var(--accent-green); padding: 10px; margin: 15px 0;">
+              <strong>Prevention:</strong> Employ advanced threat detection, behavior-based antivirus, and apply vendor patches immediately when they become available.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script>
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const item = header.parentElement;
+        const isActive = item.classList.contains('active');
+        
+        // Close all
+        document.querySelectorAll('.accordion-item').forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('.accordion-header span:last-child').textContent = '+';
+        });
+
+        // Toggle current
+        if (!isActive) {
+          item.classList.add('active');
+          header.querySelector('span:last-child').textContent = '-';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

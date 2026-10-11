@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/header') %>
+
+  <main>
+    <div style="background-color: var(--bg-card); padding: 60px 0; border-bottom: 1px solid var(--border-color);">
+      <div class="container text-center">
+        <h1 style="font-size: 3rem; color: var(--accent-cyan); margin-bottom: 20px;">Contact & FAQ</h1>
+        <p class="text-muted" style="max-width: 700px; margin: 0 auto; font-size: 1.1rem;">
+          Have questions or want to report a vulnerability? Get in touch with us.
+        </p>
+      </div>
+    </div>
+
+    <div class="container mt-4 mb-4 grid-2">
+      <div class="card">
+        <h2 style="color: var(--accent-green); margin-bottom: 20px;">Send us a Message</h2>
+        <form onsubmit="event.preventDefault(); showToast('Message sent successfully!'); this.reset();">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea class="form-control" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+        </form>
+      </div>
+
+      <div>
+        <h2 style="color: var(--accent-cyan); margin-bottom: 20px;">Frequently Asked Questions</h2>
+        
+        <div class="accordion-item active">
+          <div class="accordion-header" style="cursor: default;">
+            <span style="color: var(--text-main);">Is this content free?</span>
+          </div>
+          <div class="accordion-content" style="padding: 15px 20px; max-height: unset; background: transparent;">
+            <p class="text-muted">Yes, CyberShield Hub is dedicated to providing free, high-quality cyber security education to everyone.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item active">
+          <div class="accordion-header" style="cursor: default;">
+            <span style="color: var(--text-main);">Do you provide penetration testing services?</span>
+          </div>
+          <div class="accordion-content" style="padding: 15px 20px; max-height: unset; background: transparent;">
+            <p class="text-muted">No, we are purely an educational platform and do not offer professional consulting or testing services.</p>
+          </div>
+        </div>
+        
+        <div class="accordion-item active">
+          <div class="accordion-header" style="cursor: default;">
+            <span style="color: var(--text-main);">Can I contribute a blog post?</span>
+          </div>
+          <div class="accordion-content" style="padding: 15px 20px; max-height: unset; background: transparent;">
+            <p class="text-muted">Currently, only internal administrators can create posts, but we may open community contributions in the future!</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>
